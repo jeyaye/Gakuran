@@ -1,0 +1,85 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Centers the card vertically below the header */
+  padding: 2rem;
+}
+
+.auth-card {
+  background-color: #0F4C75;
+  padding: 3rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  color: #BBE1FA;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-family: 'Arial Black', sans-serif;
+  letter-spacing: 1px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  color: #BBE1FA;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: 2px solid #3282B8;
+  background-color: rgba(187, 225, 250, 0.05); /* Slight tint for input boxes */
+  color: #BBE1FA;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #BBE1FA;
+}
+
+/* Fixes default browser auto-fill styles to match the dark theme */
+.input-group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #0F4C75 inset !important;
+  -webkit-text-fill-color: #BBE1FA !important;
+}
+
+.auth-btn {
+  margin-top: 1rem;
+  background-color: #3282B8;
+  color: #BBE1FA;
+  border: 2px solid #3282B8;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.auth-btn:hover {
+  background-color: #BBE1FA;
+  color: #0F4C75;
+  border-color: #BBE1FA;
+}

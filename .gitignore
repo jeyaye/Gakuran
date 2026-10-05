@@ -1,0 +1,78 @@
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# ==========================================
+# Environment variables and secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Build output
+# ==========================================
+dist/
+build/
+client/dist/
+server/dist/
+
+# ==========================================
+# Logs
+# ==========================================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Testing and coverage
+# ==========================================
+coverage/
+.nyc_output/
+
+# ==========================================
+# Caches and temporary files
+# ==========================================
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
+
+# ==========================================
+# Editor and operating system files
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# Local databases and database backups
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+*.backup
+
+# ==========================================
+# Vite
+# ==========================================
+client/.vite/
+
+# ==========================================
+# Optional: generated uploads
+# Uncomment if these contain user-uploaded files
+# that should not be committed.
+# ==========================================
+# uploads/
+# client/public/uploads/
+# server/uploads/
