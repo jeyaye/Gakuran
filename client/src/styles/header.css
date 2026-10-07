@@ -1,36 +1,49 @@
 .header-container {
-  background-color: #0f172a; 
+  background-color: #0f172a;
   padding: 1.5rem 2rem;
   display: flex;
-  justify-content: space-between; /* Pushes title left, buttons right */
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .header-title {
-  color: #ffffff; 
+  color: #ffffff;
   margin: 0;
   font-size: 2.5rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 4px;
-  font-family: 'Impact', 'Arial Black', sans-serif;
-  text-shadow: 3px 3px 0px #020617; 
+  font-family: "Impact", "Arial Black", sans-serif;
+  text-shadow: 3px 3px 0px #020617;
 }
 
 .header-actions {
   display: flex;
-  gap: 1rem; /* Adds space between the login and register buttons */
+  align-items: center;
+  gap: 1rem;
 }
 
-/* Base button styles */
 .title-link {
   text-decoration: none;
 }
 
-.btn-login, 
+/* Username */
+
+.username {
+  color: #ffffff;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Base button styles */
+
+.btn-login,
 .btn-register {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -44,6 +57,7 @@
 }
 
 /* Hollow button for Login */
+
 .btn-login {
   background-color: transparent;
   color: #3b82f6;
@@ -54,7 +68,8 @@
   background-color: rgba(59, 130, 246, 0.1);
 }
 
-/* Solid button for Register */
+/* Solid button for Register / Logout */
+
 .btn-register {
   background-color: #3b82f6;
   color: #0f172a;

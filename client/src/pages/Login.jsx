@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
+import { useAuth } from "../context/useAuth.js";
 import "../styles/auth.css";
 
 function Login() {
@@ -8,6 +9,8 @@ function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { setUser } = useAuth();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -15,18 +18,14 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await api.post(
-        "/auth/login",
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await api.post("/auth/login", {
+        email,
+        password,
+      });
 
-      console.log(response.data);
+      setUser(response.data.user);
+
+      console.log("LOGIN RESPONSE:", response.data);
     } catch (error) {
       setError(error.response?.data?.error || "Login Failed");
     } finally {
@@ -45,7 +44,6 @@ function Login() {
             <input
               type="email"
               id="email"
-              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -57,7 +55,6 @@ function Login() {
             <input
               type="password"
               id="password"
-              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

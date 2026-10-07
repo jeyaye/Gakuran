@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
 
   if (/\s/.test(username) || /\s/.test(email) || /\s/.test(password)) {
     return res.status(400).json({
-    error: "Inputs cannot contain whitespace",
+      error: "Inputs cannot contain whitespace",
     });
   }
 
@@ -70,7 +70,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const result = await db.query(
-      `SELECT id, username, email, password FROM user WHERE email = $1`,
+      `SELECT id, username, email, password FROM users WHERE email = $1`,
       [email],
     );
 
@@ -99,6 +99,39 @@ router.post("/login", async (req, res) => {
         username: user.username,
         email: user.email,
       },
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Internal server error",
+    });
+  }
+});
+
+router.get("/me", async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({
+      error: "Not authenticated",
+    });
+  }
+
+  try {
+    const result = await db.query(
+      `SELECT id, username, email
+       FROM users
+       WHERE id = $1`,
+      [req.session.userId],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({
+        error: "User not found",
+      });
+    }
+
+    res.json({
+      user: result.rows[0],
     });
   } catch (error) {
     console.error(error);

@@ -29,7 +29,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24,
     },
@@ -41,7 +41,7 @@ app.use("/api/auth", authRoutes);
 app.get("/api/profile", requireAuth, async (req, res) => {
   try {
     const result = await db.query(
-      `SELECT id, username, email FROM users WHERE id $1`,
+      `SELECT id, username, email FROM users WHERE id = $1`,
       [req.session.userId],
     );
 
