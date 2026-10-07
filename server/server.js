@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import authRoutes from "./routes/authRoutes.js";
 import requireAuth from "./middleware/requireAuth.js";
+import mangaRoutes from "./routes/mangaRoutes.js";
 import db from "./db.js";
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/manga", mangaRoutes);
 
 app.get("/api/profile", requireAuth, async (req, res) => {
   try {

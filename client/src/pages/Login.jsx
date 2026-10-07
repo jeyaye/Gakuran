@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/useAuth.js";
 import "../styles/auth.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const { setUser } = useAuth();
+  const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,8 +26,7 @@ function Login() {
       });
 
       setUser(response.data.user);
-
-      console.log("LOGIN RESPONSE:", response.data);
+      navigate("/")
     } catch (error) {
       setError(error.response?.data?.error || "Login Failed");
     } finally {
