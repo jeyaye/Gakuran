@@ -1,0 +1,230 @@
+/* Container & Layout */
+.library-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #BBE1FA;
+}
+
+.guest-welcome {
+  text-align: center;
+  margin-top: 4rem;
+  color: #BBE1FA;
+}
+
+.dashboard-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #BBE1FA;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #3282B8;
+  padding-bottom: 0.5rem;
+}
+
+/* Status & Text Modifiers */
+.status-text, .empty-text {
+  color: #BBE1FA;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* Search Section */
+.search-section {
+  background-color: #0F4C75;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  border: 1px solid #3282B8;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #3282B8;
+  border-radius: 6px;
+  background-color: rgba(187, 225, 250, 0.1);
+  color: #BBE1FA;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(187, 225, 250, 0.5);
+}
+
+.search-input:focus {
+  border-color: #BBE1FA;
+}
+
+.search-btn {
+  padding: 0.8rem 2rem;
+  background-color: #3282B8;
+  color: #BBE1FA;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #BBE1FA;
+  color: #0F4C75;
+}
+
+/* Manga Grid */
+.manga-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+/* Manga Card - Updated for Dark Theme */
+.manga-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2px solid #3282B8;
+  border-radius: 8px;
+  background-color: #0F4C75;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manga-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.manga-cover {
+  display: block;
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-bottom: 2px solid #3282B8;
+}
+
+.manga-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.manga-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #BBE1FA;
+  /* Truncates long titles */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.manga-progress {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: rgba(187, 225, 250, 0.8);
+}
+
+/* Card Inputs & Selects */
+.manga-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.manga-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #BBE1FA;
+}
+
+.manga-inputs select,
+.manga-inputs input {
+  padding: 0.6rem;
+  border: 1px solid #3282B8;
+  background-color: rgba(187, 225, 250, 0.05);
+  color: #BBE1FA;
+  border-radius: 4px;
+  font: inherit;
+  outline: none;
+}
+
+.manga-inputs select option {
+  background-color: #0F4C75;
+  color: #BBE1FA;
+}
+
+/* Card Buttons */
+.manga-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: auto; /* Pushes buttons to bottom of card */
+}
+
+.manga-actions button, .add-button {
+  flex: 1;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.add-button {
+  background-color: #3282B8;
+  color: #BBE1FA;
+  margin-top: auto;
+}
+
+.add-button:hover {
+  background-color: #BBE1FA;
+  color: #0F4C75;
+}
+
+.save-button {
+  background-color: #3282B8;
+  color: #BBE1FA;
+}
+
+.save-button:hover {
+  background-color: #4da5e2;
+}
+
+.remove-button {
+  background-color: transparent;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+.remove-button:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+}
