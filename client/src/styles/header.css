@@ -1,82 +1,205 @@
+
+:root {
+  --ink: #171a1f;
+  --ink-soft: #20242b;
+  --cream: #f3ebdd;
+  --cream-muted: #c9c0b2;
+  --vermilion: #b74335;
+  --vermilion-hover: #d05240;
+  --gold: #c5a56a;
+  --border: #41434a;
+}
+
+/* Header layout */
 .header-container {
-  background-color: #0f172a;
-  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  background-color: var(--ink-soft);
+  border-bottom: 2px solid var(--vermilion);
+  box-shadow: 0 5px 18px rgb(0 0 0 / 22%);
+}
+
+/* Gakuran brand */
+.title-link {
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .header-title {
-  color: #ffffff;
+  position: relative;
   margin: 0;
-  font-size: 2.5rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 4px;
+  color: var(--cream);
   font-family: "Impact", "Arial Black", sans-serif;
-  text-shadow: 3px 3px 0px #020617;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #0b0d10;
+  transition: color 0.2s ease;
 }
 
+.title-link:hover .header-title {
+  color: var(--gold);
+}
+
+/* Login / register / logout area */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-.title-link {
-  text-decoration: none;
-}
-
-/* Username */
-
+/* Logged-in username */
 .username {
-  color: #ffffff;
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  max-width: 180px;
+  overflow: hidden;
+  color: var(--cream-muted);
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-/* Base button styles */
-
+/* Shared button styles */
 .btn-login,
 .btn-register {
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.6rem 1.5rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.65rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
   text-decoration: none;
-  display: inline-block;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Hollow button for Login */
-
+/* Outlined Login button */
 .btn-login {
-  background-color: transparent;
-  color: #3b82f6;
-  border: 2px solid #3b82f6;
+  border-color: var(--gold);
+  background: transparent;
+  color: var(--gold);
 }
 
 .btn-login:hover {
-  background-color: rgba(59, 130, 246, 0.1);
+  background: rgb(197 165 106 / 10%);
+  transform: translateY(-1px);
 }
 
-/* Solid button for Register / Logout */
-
+/* Vermilion Register / Logout button */
 .btn-register {
-  background-color: #3b82f6;
-  color: #0f172a;
-  border: 2px solid #3b82f6;
+  border-color: var(--vermilion);
+  background: var(--vermilion);
+  color: #fff8ef;
 }
 
 .btn-register:hover {
-  background-color: #60a5fa;
-  border-color: #60a5fa;
+  border-color: var(--vermilion-hover);
+  background: var(--vermilion-hover);
+  transform: translateY(-1px);
+}
+
+/* Keyboard accessibility */
+.title-link:focus-visible,
+.btn-login:focus-visible,
+.btn-register:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Tablet and mobile */
+@media (max-width: 600px) {
+  .header-container {
+    padding: 1rem 1.1rem;
+    gap: 0.75rem;
+  }
+
+  .header-title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    letter-spacing: 0.1em;
+  }
+
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .username {
+    max-width: 100px;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-login,
+  .btn-register {
+    min-height: 38px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Very narrow screens */
+@media (max-width: 360px) {
+  .header-container {
+    padding: 0.85rem 0.7rem;
+    gap: 0.4rem;
+  }
+
+  .header-title {
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+  }
+
+  .header-actions {
+    gap: 0.35rem;
+  }
+
+  .username {
+    max-width: 75px;
+  }
+
+  .btn-login,
+  .btn-register {
+    padding: 0.5rem;
+    font-size: 0.65rem;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .header-title,
+  .btn-login,
+  .btn-register {
+    transition: none;
+  }
+
+  .btn-login:hover,
+  .btn-register:hover {
+    transform: none;
+  }
 }

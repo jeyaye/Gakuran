@@ -41,7 +41,9 @@ function Home() {
     try {
       setSearchLoading(true);
       setError("");
-      const response = await api.get("/manga/search", { params: { query: search } });
+      const response = await api.get("/manga/search", {
+        params: { query: search },
+      });
       setResults(response.data.media);
     } catch (error) {
       console.error(error);
@@ -57,7 +59,10 @@ function Home() {
       const response = await api.get("/manga");
       setLibrary(response.data.manga);
     } catch (error) {
-      console.error("Failed to add manga:", error.response?.data?.error || error.message);
+      console.error(
+        "Failed to add manga:",
+        error.response?.data?.error || error.message,
+      );
     }
   }
 
@@ -78,7 +83,6 @@ function Home() {
         <h2>Welcome back, {user.username}!</h2>
       </div>
 
-      {/* SEARCH SECTION MOVED TO TOP */}
       <div className="search-section">
         <form className="search-form" onSubmit={handleSearch}>
           <input
@@ -88,14 +92,15 @@ function Home() {
             onChange={(event) => setSearch(event.target.value)}
             className="search-input"
           />
-          <button type="submit" className="search-btn">Search</button>
+          <button type="submit" className="search-btn">
+            Search
+          </button>
         </form>
       </div>
 
       {searchLoading && <p className="status-text">Searching...</p>}
       {error && <p className="error-text">{error}</p>}
 
-      {/* SEARCH RESULTS RENDERED AS CARDS */}
       {results.length > 0 && (
         <div className="results-section">
           <h3>Search Results</h3>
@@ -109,8 +114,13 @@ function Home() {
                 />
                 <div className="manga-info">
                   <h3>{manga.title.english || manga.title.romaji}</h3>
-                  <p className="manga-progress">Chapters: {manga.chapters ?? "Unknown"}</p>
-                  <button className="add-button" onClick={() => handleAddToLibrary(manga.id)}>
+                  <p className="manga-progress">
+                    Chapters: {manga.chapters ?? "Unknown"}
+                  </p>
+                  <button
+                    className="add-button"
+                    onClick={() => handleAddToLibrary(manga.id)}
+                  >
                     Add to Library
                   </button>
                 </div>
@@ -120,14 +130,17 @@ function Home() {
         </div>
       )}
 
-      {/* USER LIBRARY */}
       <div className="library-section">
         <h3 className="section-title">Your Manga Library</h3>
 
-        {libraryLoading && <p className="status-text">Loading your library...</p>}
+        {libraryLoading && (
+          <p className="status-text">Loading your library...</p>
+        )}
         {libraryError && <p className="error-text">{libraryError}</p>}
         {!libraryLoading && !libraryError && library.length === 0 && (
-          <p className="empty-text">Your library is empty. Search for manga above to get started!</p>
+          <p className="empty-text">
+            Your library is empty. Search for manga above to get started!
+          </p>
         )}
 
         <div className="manga-grid">
@@ -140,8 +153,16 @@ function Home() {
               />
               <div className="manga-info">
                 <h3>{manga.title.english || manga.title.romaji}</h3>
+                
+                <span
+                  className={`status-badge status-${manga.status.toLowerCase()}`}
+                >
+                  {manga.status}
+                </span>
+
                 <p className="manga-progress">
-                  Progress: {manga.progress} / {manga.chapters ?? "Unknown"} chapters
+                  Progress: {manga.progress} / {manga.chapters ?? "Unknown"}{" "}
+                  chapters
                 </p>
 
                 <div className="manga-inputs">
@@ -151,7 +172,13 @@ function Home() {
                       value={manga.status}
                       onChange={(event) => {
                         const newStatus = event.target.value;
-                        setLibrary((prev) => prev.map((item) => item.id === manga.id ? { ...item, status: newStatus } : item));
+                        setLibrary((prev) =>
+                          prev.map((item) =>
+                            item.id === manga.id
+                              ? { ...item, status: newStatus }
+                              : item,
+                          ),
+                        );
                       }}
                     >
                       <option value="PLANNING">Planning</option>
@@ -172,7 +199,16 @@ function Home() {
                       value={manga.progress}
                       onChange={(event) => {
                         const val = event.target.value;
-                        setLibrary((prev) => prev.map((item) => item.id === manga.id ? { ...item, progress: val === "" ? "" : Number(val) } : item));
+                        setLibrary((prev) =>
+                          prev.map((item) =>
+                            item.id === manga.id
+                              ? {
+                                  ...item,
+                                  progress: val === "" ? "" : Number(val),
+                                }
+                              : item,
+                          ),
+                        );
                       }}
                     />
                   </label>
@@ -183,11 +219,19 @@ function Home() {
                       value={manga.rating ?? ""}
                       onChange={(event) => {
                         const val = event.target.value;
-                        setLibrary((prev) => prev.map((item) => item.id === manga.id ? { ...item, rating: val === "" ? null : Number(val) } : item));
+                        setLibrary((prev) =>
+                          prev.map((item) =>
+                            item.id === manga.id
+                              ? {
+                                  ...item,
+                                  rating: val === "" ? null : Number(val),
+                                }
+                              : item,
+                          ),
+                        );
                       }}
                     >
                       <option value="">Not Rated</option>
-                      {/* FIXED: Added proper parentheses for the implicit return so options render */}
                       {Array.from({ length: 10 }, (_, index) => (
                         <option key={index + 1} value={index + 1}>
                           {index + 1} / 10
@@ -221,7 +265,9 @@ function Home() {
                     onClick={async () => {
                       try {
                         await api.delete(`/manga/${manga.id}`);
-                        setLibrary((prev) => prev.filter((item) => item.id !== manga.id));
+                        setLibrary((prev) =>
+                          prev.filter((item) => item.id !== manga.id),
+                        );
                       } catch (error) {
                         console.error("Failed to remove manga:", error);
                       }
