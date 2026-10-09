@@ -15,6 +15,35 @@ function Home() {
   const [libraryLoading, setLibraryLoading] = useState(false);
   const [libraryError, setLibraryError] = useState("");
 
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [sortOrder, setSortOrder] = useState("TITLE_ASC");
+
+  const filteredLibrary = [...library]
+    .filter((manga) => {
+      if (statusFilter === "ALL") return true;
+      return manga.status === statusFilter;
+    })
+    .sort((a, b) => {
+      const titleA = (a.title.english || a.title.romaji || "").toLowerCase();
+
+      const titleB = (b.title.english || b.title.romaji || "").toLowerCase();
+
+      switch (sortOrder) {
+        case "TITLE_DESC":
+          return titleB.localeCompare(titleA);
+
+        case "RATING_DESC":
+          return (b.rating ?? 0) - (a.rating ?? 0);
+
+        case "PROGRESS_DESC":
+          return Number(b.progress || 0) - Number(a.progress || 0);
+
+        case "TITLE_ASC":
+        default:
+          return titleA.localeCompare(titleB);
+      }
+    });
+
   useEffect(() => {
     if (loading || !user) return;
 
@@ -133,6 +162,43 @@ function Home() {
       <div className="library-section">
         <h3 className="section-title">Your Manga Library</h3>
 
+        {!libraryLoading && !libraryError && library.length > 0 && (
+          <div className="library-controls">
+            <label className="library-control">
+              Filter by status
+              <select
+                value={statusFilter}
+                onChange={(event) => setStatusFilter(event.target.value)}
+              >
+                <option value="ALL">All Manga</option>
+                <option value="PLANNING">Planning</option>
+                <option value="READING">Reading</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="PAUSED">Paused</option>
+                <option value="DROPPED">Dropped</option>
+                <option value="REPEATING">Repeating</option>
+              </select>
+            </label>
+
+            <label className="library-control">
+              Sort by
+              <select
+                value={sortOrder}
+                onChange={(event) => setSortOrder(event.target.value)}
+              >
+                <option value="TITLE_ASC">Title: A–Z</option>
+                <option value="TITLE_DESC">Title: Z–A</option>
+                <option value="RATING_DESC">Rating: Highest First</option>
+                <option value="PROGRESS_DESC">Progress: Most Chapters</option>
+              </select>
+            </label>
+
+            <p className="library-count">
+              Showing {filteredLibrary.length} of {library.length} manga
+            </p>
+          </div>
+        )}
+
         {libraryLoading && (
           <p className="status-text">Loading your library...</p>
         )}
@@ -143,8 +209,12 @@ function Home() {
           </p>
         )}
 
+        {library.length > 0 && filteredLibrary.length === 0 && (
+          <p className="empty-text">No manga found with this status.</p>
+        )}
+
         <div className="manga-grid">
-          {library.map((manga) => (
+          {filteredLibrary.map((manga) => (
             <div className="manga-card" key={manga.id}>
               <img
                 src={manga.coverImage.large}
@@ -153,7 +223,7 @@ function Home() {
               />
               <div className="manga-info">
                 <h3>{manga.title.english || manga.title.romaji}</h3>
-                
+
                 <span
                   className={`status-badge status-${manga.status.toLowerCase()}`}
                 >
