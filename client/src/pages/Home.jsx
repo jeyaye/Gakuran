@@ -18,10 +18,27 @@ function Home() {
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [sortOrder, setSortOrder] = useState("TITLE_ASC");
 
+  const [librarySearch, setLibrarySearch] = useState("");
+
   const filteredLibrary = [...library]
     .filter((manga) => {
-      if (statusFilter === "ALL") return true;
-      return manga.status === statusFilter;
+      const matchesStatus =
+        statusFilter === "ALL" || manga.status === statusFilter;
+
+      const query = librarySearch.trim().toLowerCase();
+
+      const titles = [
+        manga.title?.english,
+        manga.title?.romaji,
+        manga.title?.native,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const matchesSearch = titles.includes(query);
+
+      return matchesStatus && matchesSearch;
     })
     .sort((a, b) => {
       const titleA = (a.title.english || a.title.romaji || "").toLowerCase();
@@ -165,6 +182,17 @@ function Home() {
         {!libraryLoading && !libraryError && library.length > 0 && (
           <div className="library-controls">
             <label className="library-control">
+              Search your library
+              <input
+                type="search"
+                className="library-search-input"
+                placeholder="Find manga by title..."
+                value={librarySearch}
+                onChange={(event) => setLibrarySearch(event.target.value)}
+              />
+            </label>
+
+            <label className="library-control">
               Filter by status
               <select
                 value={statusFilter}
@@ -210,7 +238,7 @@ function Home() {
         )}
 
         {library.length > 0 && filteredLibrary.length === 0 && (
-          <p className="empty-text">No manga found with this status.</p>
+          <p className="empty-text">No manga matches your search and filter.</p>
         )}
 
         <div className="manga-grid">

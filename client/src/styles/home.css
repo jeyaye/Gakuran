@@ -246,6 +246,30 @@ select:focus-visible {
   }
 }
 
+/* Library title search */
+.library-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--cream);
+  font-size: 0.9rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.library-search-input::placeholder {
+  color: #8e9096;
+}
+
+.library-search-input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 /* Manga grid and cards */
 
 .manga-grid {
