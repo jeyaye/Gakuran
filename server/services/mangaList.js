@@ -102,3 +102,68 @@ export async function getMangaByIds(ids) {
 
   return data.data.Page.media;
 }
+
+export async function getMangaById(id) {
+  const query = `
+    query ($id: Int) {
+      Media(id: $id, type: MANGA) {
+        id
+
+        title {
+          romaji
+          english
+          native
+        }
+
+        coverImage {
+          extraLarge
+          large
+        }
+
+        description(asHtml: false)
+        genres
+        status
+        chapters
+        volumes
+        averageScore
+        meanScore
+        format
+        countryOfOrigin
+
+        startDate {
+          year
+          month
+          day
+        }
+
+        endDate {
+          year
+          month
+          day
+        }
+
+        siteUrl
+      }
+    }
+  `;
+
+  const response = await fetch(ANILIST_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables: { id },
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || data.errors) {
+    throw new Error("Failed to fetch manga details");
+  }
+
+  return data.data.Media;
+}

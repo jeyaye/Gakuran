@@ -1,6 +1,10 @@
 import express from "express";
 import db from "../db.js";
-import { searchManga, getMangaByIds } from "../services/mangaList.js";
+import {
+  searchManga,
+  getMangaByIds,
+  getMangaById,
+} from "../services/mangaList.js";
 
 const router = express.Router();
 
@@ -66,6 +70,34 @@ router.post("/", async (req, res) => {
 
     res.status(500).json({
       error: "Failed to add manga",
+    });
+  }
+});
+
+router.get("/:mangaId", async (req, res) => {
+  const mangaId = Number(req.params.mangaId);
+
+  if (!Number.isInteger(mangaId) || mangaId <= 0) {
+    return res.status(400).json({
+      error: "Invalid manga ID",
+    });
+  }
+
+  try {
+    const manga = await getMangaById(mangaId);
+
+    if (!manga) {
+      return res.status(404).json({
+        error: "Manga not found",
+      });
+    }
+
+    res.json({ manga });
+  } catch (error) {
+    console.error("Fetch manga details error:", error);
+
+    res.status(500).json({
+      error: "Failed to fetch manga details",
     });
   }
 });

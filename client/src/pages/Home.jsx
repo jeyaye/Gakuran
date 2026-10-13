@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/useAuth.js";
 import api from "../api/axios.js";
 import "../styles/home.css";
@@ -153,13 +154,22 @@ function Home() {
           <div className="manga-grid">
             {results.map((manga) => (
               <div className="manga-card" key={manga.id}>
-                <img
-                  src={manga.coverImage.large}
-                  alt={manga.title.english || manga.title.romaji}
-                  className="manga-cover"
-                />
+                <Link to={`/manga/${manga.id}`} className="manga-details-link">
+                  <img
+                    src={manga.coverImage.large}
+                    alt={manga.title.english || manga.title.romaji}
+                    className="manga-cover"
+                  />
+                </Link>
                 <div className="manga-info">
-                  <h3>{manga.title.english || manga.title.romaji}</h3>
+                  <h3>
+                    <Link
+                      to={`/manga/${manga.id}`}
+                      className="manga-details-link"
+                    >
+                      {manga.title.english || manga.title.romaji}
+                    </Link>
+                  </h3>
                   <p className="manga-progress">
                     Chapters: {manga.chapters ?? "Unknown"}
                   </p>
@@ -244,14 +254,22 @@ function Home() {
         <div className="manga-grid">
           {filteredLibrary.map((manga) => (
             <div className="manga-card" key={manga.id}>
-              <img
-                src={manga.coverImage.large}
-                alt={manga.title.english || manga.title.romaji}
-                className="manga-cover"
-              />
+              <Link to={`/manga/${manga.id}`} className="manga-details-link">
+                <img
+                  src={manga.coverImage.large}
+                  alt={manga.title.english || manga.title.romaji}
+                  className="manga-cover"
+                />
+              </Link>
               <div className="manga-info">
-                <h3>{manga.title.english || manga.title.romaji}</h3>
-
+                <h3>
+                  <Link
+                    to={`/manga/${manga.id}`}
+                    className="manga-details-link"
+                  >
+                    {manga.title.english || manga.title.romaji}
+                  </Link>
+                </h3>
                 <span
                   className={`status-badge status-${manga.status.toLowerCase()}`}
                 >

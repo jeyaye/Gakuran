@@ -1,0 +1,138 @@
+.manga-details-container {
+  width: min(1100px, 92%);
+  margin: 2rem auto 4rem;
+  color: var(--cream);
+}
+
+.manga-details-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.manga-details-link:hover {
+  color: var(--gold);
+}
+
+.back-link,
+.anilist-link {
+  display: inline-block;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.back-link {
+  margin-bottom: 1.5rem;
+}
+
+.back-link:hover,
+.anilist-link:hover {
+  color: var(--vermilion-hover);
+}
+
+.manga-details {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  align-items: start;
+  gap: 2rem;
+}
+
+.manga-details-cover img {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 25%);
+}
+
+.anilist-link {
+  margin-top: 1rem;
+}
+
+.manga-details-info h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.manga-alternative-title,
+.manga-native-title {
+  margin: 0.5rem 0;
+  color: var(--cream-muted);
+}
+
+.manga-details-info h2 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+.manga-detail-tags,
+.genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.manga-detail-tags {
+  margin: 1rem 0 1.5rem;
+}
+
+.detail-tag,
+.genre-tag {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--ink-soft);
+  color: var(--cream);
+  font-size: 0.8rem;
+}
+
+.manga-metadata {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.manga-metadata > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--ink-soft);
+}
+
+.manga-metadata span {
+  color: var(--cream-muted);
+  font-size: 0.8rem;
+}
+
+.manga-metadata strong {
+  overflow-wrap: anywhere;
+}
+
+.manga-description p {
+  color: var(--cream-muted);
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 650px) {
+  .manga-details {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .manga-details-cover {
+    width: min(240px, 100%);
+    margin: 0 auto;
+  }
+
+  .manga-details-info h1 {
+    font-size: 1.8rem;
+  }
+}
