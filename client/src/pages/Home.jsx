@@ -62,6 +62,49 @@ function Home() {
       }
     });
 
+  const ratedManga = library.filter((manga) => manga.rating != null);
+
+  const totalChaptersRead = library.reduce(
+    (total, manga) => total + Number(manga.progress || 0),
+    0,
+  );
+
+  const averageRating =
+    ratedManga.length > 0
+      ? (
+          ratedManga.reduce((total, manga) => total + Number(manga.rating), 0) /
+          ratedManga.length
+        ).toFixed(1)
+      : null;
+
+  const stats = [
+    {
+      label: "Total Manga",
+      value: library.length,
+      description: "In your library",
+    },
+    {
+      label: "Currently Reading",
+      value: library.filter((manga) => manga.status === "READING").length,
+      description: "In progress",
+    },
+    {
+      label: "Completed",
+      value: library.filter((manga) => manga.status === "COMPLETED").length,
+      description: "Finished manga",
+    },
+    {
+      label: "Chapters Read",
+      value: totalChaptersRead.toLocaleString(),
+      description: "Across your library",
+    },
+    {
+      label: "Average Rating",
+      value: averageRating === null ? "—" : `${averageRating}/10`,
+      description: `${ratedManga.length} rated manga`,
+    },
+  ];
+
   useEffect(() => {
     if (loading || !user) return;
 
@@ -129,6 +172,23 @@ function Home() {
       <div className="dashboard-header">
         <h2>Welcome back, {user.username}!</h2>
       </div>
+
+      <section className="stats-section">
+        <div className="stats-heading">
+          <h3>Your Reading Statistics</h3>
+          <p>A snapshot of your manga journey.</p>
+        </div>
+
+        <div className="stats-grid">
+          {stats.map((stat) => (
+            <div className="stat-card" key={stat.label}>
+              <p className="stat-label">{stat.label}</p>
+              <p className="stat-value">{stat.value}</p>
+              <p className="stat-description">{stat.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="search-section">
         <form className="search-form" onSubmit={handleSearch}>
